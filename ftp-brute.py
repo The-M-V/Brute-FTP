@@ -12,7 +12,7 @@ print("""
 ██   ██ ██   ██ ██    ██    ██    ██          ██         ██    ██      
 ██████  ██   ██  ██████     ██    ███████     ██         ██    ██      
                    
-                    Tool developed by TheMV and Whoami
+                    Tool developed by TheMV
                                      
 """)
 
